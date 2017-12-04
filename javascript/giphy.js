@@ -1,0 +1,116 @@
+// Create and Array to hold all topics
+var topics = ["cat", "dog", "goat", "horse", "owl"];
+
+// Start the page with pre-determined themes
+for (var i = 0; i < topics.length; i++) {
+
+	var btn = $("<button>" + topics[i].toUpperCase() + "</button>").addClass("btn btn-info mr-0 mb-0");
+	$("#btn-holder").append(btn);
+
+}
+
+// Theme buttons will be created with this function
+function createButtons(input) {
+
+	topics.push(input);
+
+	$("#btn-holder").empty();
+
+	for (var i = 0; i < topics.length; i++) {
+
+		var btn = $("<button>" + topics[i].toUpperCase() + "</button>").addClass("btn btn-info mr-0 mb-0");
+		$("#btn-holder").append(btn);
+
+	}
+
+}
+
+// ================================== ADD NEW THEMES ======================================
+
+$("#add-btn").on("click", function () {
+
+	// This is to prevent the form element from trying to submit anything
+	event.preventDefault();
+
+	var inputTopic = $("#input-topic").val();
+
+	if (inputTopic.length > 0 && !topics.includes(inputTopic.toLowerCase())) {
+
+		createButtons(inputTopic);
+
+	}
+
+	$("#input-topic").val("");
+
+})
+
+// ==================================== GIPHY API =======================================
+
+$("#btn-holder").on("click", "button", function() {
+
+	// Clear the gif-holder before dumping new gifs
+	$("#gif-holder").empty();
+
+	// Declare url variables
+	var theme = $(this).text();
+	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + theme + "&api_key=dc6zaTOxFJmzC";
+
+	// Request query
+	$.ajax({
+
+		url: queryURL,
+		method: "GET"
+
+	}).done(function(response) {
+
+		var wrapper, divTop, divBot;
+
+		// Dump 12 still images into the gif-holder
+		for (var i = 0; i < 12; i++) {
+
+			wrapper = $("<div>").addClass("d-inline-block mb-4");
+			divTop = $("<div class=\"text-left\">").html("<em>Rating: " + response.data[i].rating + "</em><br>");
+			divBot = $("<div class=\"gif-div mr-2 mt-2\">");
+			divBot.append("<img src=\"" + response.data[i].images["480w_still"].url + "\" id=" + i + " class=\"gif\">");
+			wrapper.append(divTop);
+			wrapper.append(divBot);
+			$("#gif-holder").append(wrapper);
+
+		}
+
+		// This will be true if a gif is playing
+		var gifInAction = false;
+
+		// When a gif is clicked, if gifInAction is false, that gif will play and gifInAction will become true
+		$(".gif").on("click", function() {
+			
+			var gifImg = $(this);
+			var idNum = $(this).attr("id");
+			var srcStill = response.data[idNum].images["480w_still"].url;
+			var srcGif = response.data[idNum].images.downsized.url;
+
+			if (!gifInAction) {
+
+				gifImg.addClass("action");
+				$(".action").attr("src", srcGif);
+				gifInAction = true;
+
+			} else {
+
+				gifImg.attr("src", srcStill);
+				gifImg.removeClass("action");
+				gifInAction = false;
+
+			}
+			
+		})
+
+	});
+	
+})
+
+
+
+
+
+

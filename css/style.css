@@ -1,0 +1,32 @@
+button {
+	background-color: orange;
+	margin: 10px;
+	cursor: pointer;
+}
+
+#add-btn {
+	cursor: pointer;
+}
+
+#gifs {
+	width: 90%;
+	margin: auto;
+}
+
+.gif {
+	height: 200px;
+	width: auto;
+}
+
+@media screen and (max-width: 640px) {
+
+	.gif {
+		width: 100%;
+		height: auto;
+	}
+
+	#gifs {
+		text-align: center;
+	}
+
+}

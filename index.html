@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Gif Search</title>
+		<!-- BOOTSTRAP -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+		<!-- STYLESHEET -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+
+	<body>
+		
+		<div class="container-fluid p-5">
+
+			<div class="row">
+				<!-- All animal buttons will be dumped here -->
+				<div id="btn-holder" class="col-sm-12 col-md-8"></div>
+				<!-- Form to add animals to the button list -->
+				<div class="col-sm-12 col-md-4">
+					<form class="input-group mt-2">
+						<input type="text" class="form-control" placeholder="Enter a theme" id="input-topic">
+						<input type="submit" class="input-group-addon bg-warning" id="add-btn" value="Add">
+					</form>
+				</div>
+			</div>
+			
+			<div class="row" id="gifs">
+				<!-- All Gifs will be dumped here -->
+				<div class="col-12 pt-5" id="gif-holder"></div>
+			</div>
+
+		</div>
+
+
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<!-- Ajax -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<!-- Local js -->
+		<script type="text/javascript" src="javascript/giphy.js"></script>
+
+	</body>
+
+</html>
+

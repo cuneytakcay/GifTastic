@@ -9,50 +9,12 @@ for (var i = 0; i < topics.length; i++) {
 
 }
 
-// Theme buttons will be created with this function
-function createButtons(input) {
+// ==================================== FUNCTIONS =======================================
 
-	topics.push(input);
+// Request query from Giphy Api 
+function requestQuery(theme) {
 
-	$("#btn-holder").empty();
-
-	for (var i = 0; i < topics.length; i++) {
-
-		var btn = $("<button>" + topics[i].toUpperCase() + "</button>").addClass("btn btn-info mr-0 mb-0");
-		$("#btn-holder").append(btn);
-
-	}
-
-}
-
-// ================================== ADD NEW THEMES ======================================
-
-$("#add-btn").on("click", function () {
-
-	// This is to prevent the form element from trying to submit anything
-	event.preventDefault();
-
-	var inputTopic = $("#input-topic").val();
-
-	if (inputTopic.length > 0 && !topics.includes(inputTopic.toLowerCase())) {
-
-		createButtons(inputTopic);
-
-	}
-
-	$("#input-topic").val("");
-
-})
-
-// ==================================== GIPHY API =======================================
-
-$("#btn-holder").on("click", "button", function() {
-
-	// Clear the gif-holder before dumping new gifs
-	$("#gif-holder").empty();
-
-	// Declare url variables
-	var theme = $(this).text();
+	// Declare url variable
 	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + theme + "&api_key=dc6zaTOxFJmzC";
 
 	// Request query
@@ -106,10 +68,65 @@ $("#btn-holder").on("click", "button", function() {
 		})
 
 	});
+
+}
+
+// Theme buttons will be created with this function
+function createButtons(input) {
+
+	topics.push(input);
+
+	$("#btn-holder").empty();
+
+	for (var i = 0; i < topics.length; i++) {
+
+		var btn = $("<button>" + topics[i].toUpperCase() + "</button>").addClass("btn btn-info mr-0 mb-0");
+		$("#btn-holder").append(btn);
+
+	}
+
+}
+
+// ========================= START THE PAGE WITH RANDOM GIFS ==============================
+
+requestQuery("random");
+
+// ================================== ADD NEW THEMES ======================================
+
+$("#add-btn").on("click", function () {
+
+	// This is to prevent the form element from trying to submit anything
+	event.preventDefault();
+
+	var inputTopic = $("#input-topic").val();
+
+	if (inputTopic.length > 0 && !topics.includes(inputTopic.toLowerCase())) {
+
+		createButtons(inputTopic);
+
+	}
+
+	$("#input-topic").val("");
+
+})
+
+// ================================== SELECT THEME ======================================
+
+// When a button is clicked, the theme assigned to the button will call gifs with that theme
+$("#btn-holder").on("click", "button", function() {
+
+	// Clear the gif-holder before dumping new gifs
+	$("#gif-holder").empty();
+
+	// Assign the theme to the theme variable to pass as a parameter
+	var selectedTheme = $(this).text();
+
+	// Call the requestQuery function to dump new gifs
+	requestQuery(selectedTheme);
 	
 })
 
-
+// ======================================================================================
 
 
 

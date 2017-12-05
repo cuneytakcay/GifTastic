@@ -42,25 +42,26 @@ function requestQuery(theme) {
 
 		// This will be true if a gif is playing
 		var gifInAction = false;
+		var gifImg, idNum, srcStill, srcGif;
 
 		// When a gif is clicked, if gifInAction is false, that gif will play and gifInAction will become true
 		$(".gif").on("click", function() {
 			
-			var gifImg = $(this);
-			var idNum = $(this).attr("id");
-			var srcStill = response.data[idNum].images["480w_still"].url;
-			var srcGif = response.data[idNum].images.downsized.url;
-
 			if (!gifInAction) {
+
+				gifImg = $(this);
+				idNum = $(this).attr("id");
+				srcStill = response.data[idNum].images["480w_still"].url;
+				srcGif = response.data[idNum].images.downsized.url;
 
 				gifImg.addClass("action");
 				$(".action").attr("src", srcGif);
 				gifInAction = true;
 
-			} else {
+			} else { 
 
-				gifImg.attr("src", srcStill);
-				gifImg.removeClass("action");
+				$(".action").attr("src", srcStill);
+				$(".action").removeClass("action");
 				gifInAction = false;
 
 			}
@@ -89,7 +90,7 @@ function createButtons(input) {
 
 // ========================= START THE PAGE WITH RANDOM GIFS ==============================
 
-requestQuery("random");
+requestQuery("funny");
 
 // ================================== ADD NEW THEMES ======================================
 
